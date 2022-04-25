@@ -59,7 +59,7 @@ String getDefaultSensor()
   return "Wifi: " + String(WiFi.RSSI()) + "db";
 }
 
-String getJwt()
+String getJwt(CloudIoTCoreDevice &device)
 {
   // Disable software watchdog as these operations can take a while.
   ESP.wdtDisable();
