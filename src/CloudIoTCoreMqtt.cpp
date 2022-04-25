@@ -15,7 +15,7 @@
 #include "CloudIoTCoreMqtt.h"
 
 // Forward global callback declarations
-String getJwt();
+String getJwt(CloudIoTCoreDevice &device);
 void messageReceived(String &topic, String &payload);
 // callback for startMQTTAdvanced
 void messageReceivedAdvanced(MQTTClient *client, char topic[], char bytes[], int length);
@@ -48,7 +48,7 @@ void CloudIoTCoreMqtt::mqttConnect(bool skip) {
         this->mqttClient->connect(
             device->getClientId().c_str(),
             "unused",
-            getJwt().c_str(),
+            getJwt(*device).c_str(),
             skip);
 
     if (this->mqttClient->lastError() != LWMQTT_SUCCESS && result){
@@ -107,7 +107,7 @@ void CloudIoTCoreMqtt::mqttConnectAsync(bool skip) {
       this->mqttClient->connect(
           device->getClientId().c_str(),
           "unused",
-          getJwt().c_str(),
+          getJwt(*device).c_str(),
           skip);
 
   if (this->mqttClient->lastError() != LWMQTT_SUCCESS && result == true){
@@ -258,7 +258,7 @@ void CloudIoTCoreMqtt::logConfiguration(bool showJWT) {
       ":" + String(CLOUD_IOT_CORE_MQTT_PORT));
   Serial.println("ClientId: " + device->getClientId());
   if (showJWT) {
-    Serial.println("JWT: " + getJwt());
+    Serial.println("JWT: " + getJwt(*device));
   }
 }
 
