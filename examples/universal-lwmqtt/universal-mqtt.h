@@ -141,10 +141,10 @@ String getDefaultSensor() {
   return  "Wifi: " + String(WiFi.RSSI()) + "db";
 }
 
-String getJwt() {
+String getJwt(CloudIoTCoreDevice &device) {
   iat = time(nullptr);
   Serial.println("Refreshing JWT");
-  jwt = device->createJWT(iat, jwt_exp_secs);
+  jwt = device.createJWT(iat, jwt_exp_secs);
   return jwt;
 }
 
@@ -235,12 +235,12 @@ String getDefaultSensor() {
   return  "Wifi: " + String(WiFi.RSSI()) + "db";
 }
 
-String getJwt() {
+String getJwt(CloudIoTCoreDevice &device) {
   // Disable software watchdog as these operations can take a while.
   ESP.wdtDisable();
   iat = time(nullptr);
   Serial.println("Refreshing JWT");
-  jwt = device->createJWT(iat, jwt_exp_secs);
+  jwt = device.createJWT(iat, jwt_exp_secs);
   ESP.wdtEnable(0);
   return jwt;
 }
