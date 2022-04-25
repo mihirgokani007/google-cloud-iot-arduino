@@ -52,11 +52,11 @@ String getDefaultSensor() {
   return  "Wifi: " + String(WiFi.RSSI()) + "db";
 }
 
-String getJwt() {
+String getJwt(CloudIoTCoreDevice &device) {
   // Disable software watchdog as these operations can take a while.
   Serial.println("Refreshing JWT");
   iat = WiFi.getTime();
-  jwt = device->createJWT(iat, jwt_exp_secs);
+  jwt = device.createJWT(iat, jwt_exp_secs);
   return jwt;
 }
 
